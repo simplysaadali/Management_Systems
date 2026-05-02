@@ -4,6 +4,7 @@
 #include <string>
 #include <cctype>
 #include <ctime>
+#include <cmath>
 
 using namespace std;
 
@@ -32,15 +33,24 @@ protected:
     string timeStamp;
 
 public:
+// default construvotr
     Transaction() {
         this->PhNumber = "";
         this->amount = 0.0;
         this->timeStamp = getCurrentTime();
     }
 
+    // fully parametrized constructor...
     Transaction(string PhoneNumber, double amt) {
         this->PhNumber = PhoneNumber;
         this->amount = amt;
+        this->timeStamp = getCurrentTime();
+    }
+
+    // convenience Constructor...
+    Transaction(string PhoneNumber) {
+        this->PhNumber = PhoneNumber;
+        this->amount = 0.0;   // default value
         this->timeStamp = getCurrentTime();
     }
 
@@ -57,6 +67,7 @@ public:
 
     virtual double calculateCommission() = 0;
     virtual void printReceipt() = 0;
+    virtual void saveToFile(ofstream& out) = 0;
 
     virtual ~Transaction() {
         ofstream file("log.txt", ios::app);
@@ -72,7 +83,15 @@ public:
 
     double calculateCommission() override {
         double commission = amount * 0.025;
-        return (int) (commission < 2) ? 2 : commission;
+        return (commission < 2) ? 2 : floor (commission);
+    }
+
+    void saveToFile(ofstream& out) override {
+        out << "\n--- Mobile Load Receipt ---\n";
+        out << "Phone Number: " << PhNumber << endl;
+        out << "Amount: " << amount << endl;
+        out << "Commission: " << calculateCommission() << endl;
+        out << "Timestamp: " << timeStamp << endl;
     }
 
     void printReceipt() override {
@@ -90,7 +109,7 @@ private:
 
 public:
     EasyPaisa(double amt, string t, string s, string r)
-        : Transaction() {
+        : Transaction(s, amt) {
         this->amount = amt;
         this->type = t;
         this->sender = s;
@@ -103,7 +122,17 @@ public:
         else if (amount <= 5000)
             return 25;
         else
-            return (int) (25 + 0.003 * (amount - 5000));
+            return floor(25 + 0.003 * (amount - 5000));
+    }
+
+    void saveToFile(ofstream& out) override {
+        out << "\n--- EasyPaisa Receipt ---\n";
+        out << "Amount: " << amount << endl;
+        out << "Commission: " << calculateCommission() << endl;
+        out << "Timestamp: " << timeStamp << endl;
+        out << "Sender: " << sender << endl;
+        out << "Receiver: " << receiver << endl;
+        out << "Type: " << type << endl;
     }
 
     void printReceipt() override {
@@ -133,6 +162,14 @@ public:
         return 150;
     }
 
+    void saveToFile(ofstream& out) override {
+        out << "\n--- SIM Replacement Receipt ---\n";
+        out << "Timestamp: " << timeStamp << endl;
+        out << "Old Number: " << oldNo << endl;
+        out << "New Number: " << newNo << endl;
+        out << "Commission: " << calculateCommission() << endl;
+    }
+
     void printReceipt() override {
         cout << "\n--- SIM Replacement Receipt ---\n";
         cout << "Timestamp: " << timeStamp << endl;
@@ -151,12 +188,10 @@ public:
         t_list.push_back(t);
     }
 
+    void printRecentTransaction() {
+    }
+
     void printDailyLedger() {
-        cout << "\n===== DAILY LEDGER =====\n";
-        for (Transaction* t : t_list) {
-            t->printReceipt();
-            cout << "------------------------\n";
-        }
     }
 
     double totalCommission() {
@@ -165,6 +200,36 @@ public:
             total += t->calculateCommission();
         }
         return total;
+    }
+
+    void generateReceipt(bool fullLedger) {
+        ofstream file("receipt.txt", ios :: app);
+
+        if (!file) {
+            cout << "Error creating file!\n";
+            return;
+        }
+
+        if (fullLedger) {
+            file  << endl << "--- DAILY LEDGER ---\n";
+
+            for (auto t : t_list) {
+                t->saveToFile(file);
+                file << "------------------------\n";
+            }
+
+            file << "\nTotal Commission: " << totalCommission() << endl;
+        }
+        else {
+            if (t_list.empty()) {
+                file << "No transactions available.\n";
+            } else {
+                file << "--- MOST RECENT TRANSACTION ---\n";
+                t_list.back()->saveToFile(file);
+            }
+        }
+
+        file.close();
     }
 
     ~DailyLedger() {
@@ -179,7 +244,7 @@ int main() {
     DailyLedger ledger;
 
     do {
-        cout << "1. Mobile Load" << endl;
+        cout << endl << "1. Mobile Load" << endl;
         cout << "2. EasyPaisa" << endl;
         cout << "3. SIM Replacement" << endl;
         cout << "4. Show Ledger" << endl;
@@ -213,7 +278,7 @@ int main() {
                 cout << "Invalid amount. Try again.\n";
             }
 
-            cout << "---Done---" << endl;
+            cout << "---Done---" << endl << endl;
 
             ledger.addTransaction(new MobileLoad(number, amount));
         }
@@ -285,9 +350,23 @@ int main() {
 
         // for the daiy ledger and total commission... and recerptsof the previous task
         else if (choice == 4) {
-            ledger.printDailyLedger();
-            cout << endl << "Total Commission: " << ledger.totalCommission() << endl;
-        }
+            int subChoice;
+
+            cout << "\n1. Recent Transaction\n";
+            cout << "2. Full Day Ledger\n";
+            cout << "Enter choice: ";
+            cin >> subChoice;
+
+            if (subChoice == 1) {
+                ledger.generateReceipt(false);
+            }
+            else if (subChoice == 2) {
+                ledger.generateReceipt(true);
+            }
+            else {
+                cout << "Invalid choice!\n";
+            }
+    }
 
         // Exit function...
         else if (choice == 5) {
