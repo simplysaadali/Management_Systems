@@ -72,7 +72,7 @@ public:
 
     double calculateCommission() override {
         double commission = amount * 0.025;
-        return (commission < 2) ? 2 : commission;
+        return (int) (commission < 2) ? 2 : commission;
     }
 
     void printReceipt() override {
@@ -103,7 +103,7 @@ public:
         else if (amount <= 5000)
             return 25;
         else
-            return 25 + 0.003 * (amount - 5000);
+            return (int) (25 + 0.003 * (amount - 5000));
     }
 
     void printReceipt() override {
