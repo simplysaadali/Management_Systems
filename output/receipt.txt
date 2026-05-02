@@ -1,64 +1,11 @@
+
 --- DAILY LEDGER ---
 
---- EasyPaisa Receipt ---
-Amount: 890987
-Commission: 2682
-Timestamp: 02-05-2026 04:41:54 PM
-Sender: 03153456576
-Receiver: 03264567654
-Type: in
-------------------------
-
-Total Commission: 2682
---- DAILY LEDGER ---
-
---- EasyPaisa Receipt ---
-Amount: 890987
-Commission: 2682
-Timestamp: 02-05-2026 04:41:54 PM
-Sender: 03153456576
-Receiver: 03264567654
-Type: in
-------------------------
-
 --- Mobile Load Receipt ---
-Phone Number: 03246578765
-Amount: 456
-Commission: 11
-Timestamp: 02-05-2026 04:42:29 PM
+Phone Number: 03145676543
+Amount: 345
+Commission: 8
+Timestamp: 02-05-2026 05:19:41 PM
 ------------------------
 
-Total Commission: 2693
---- MOST RECENT TRANSACTION ---
-
---- Mobile Load Receipt ---
-Phone Number: 03246578765
-Amount: 456
-Commission: 11
-Timestamp: 02-05-2026 04:42:29 PM
---- DAILY LEDGER ---
-
---- EasyPaisa Receipt ---
-Amount: 890987
-Commission: 2682
-Timestamp: 02-05-2026 04:41:54 PM
-Sender: 03153456576
-Receiver: 03264567654
-Type: in
-------------------------
-
---- Mobile Load Receipt ---
-Phone Number: 03246578765
-Amount: 456
-Commission: 11
-Timestamp: 02-05-2026 04:42:29 PM
-------------------------
-
---- SIM Replacement Receipt ---
-Timestamp: 02-05-2026 04:43:46 PM
-Old Number: 03455465768
-New Number: 03456765768
-Commission: 150
-------------------------
-
-Total Commission: 2843
+Total Commission: 8

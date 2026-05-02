@@ -5,6 +5,7 @@
 #include <cctype>
 #include <ctime>
 #include <cmath>
+#include <limits>
 
 using namespace std;
 
@@ -20,10 +21,6 @@ bool isValidPhone(string number) {
         if (!isdigit(c)) return false;
     }
     return true;
-}
-
-bool isValidAmount(double amount) {
-    return amount > 0;
 }
 
 class Transaction {
@@ -240,52 +237,83 @@ public:
 };
 
 int main() {
-    int choice;
     DailyLedger ledger;
 
-    do {
+    while (true) {
+
         cout << endl << "1. Mobile Load" << endl;
         cout << "2. EasyPaisa" << endl;
         cout << "3. SIM Replacement" << endl;
         cout << "4. Show Ledger" << endl;
         cout << "5. Exit" << endl;
         cout << "------------------------" << endl;
-        cout << "Enter choice: " <<  endl;
-        cin >> choice;
+        cout << "Enter choice: ";
 
-// for Easyload, masn mobile load...
-        if (choice == 1) {
+        string temp;
+        int input;
+
+        cout << "Enter choice: ";
+        cin >> temp;
+
+        // check if ALL characters are digits
+        bool valid = true;
+        for (char c : temp) {
+            if (!isdigit(c)) {
+                valid = false;
+                break;
+            }
+        }
+
+        if (!valid) {
+            cout << "Invalid input! Please enter numbers only.\n";
+            continue;
+        }
+
+        input = stoi(temp);
+
+        // ===================== MOBILE LOAD =====================
+        if (input == 1) {
             string number;
+            string temp;
             double amount;
 
             while (true) {
                 cout << "Enter phone number: ";
                 cin >> number;
-
-                if (isValidPhone(number))
-                    break;
-
+                if (isValidPhone(number)) break;
                 cout << "Invalid phone number. Try again.\n";
             }
 
-            while(true){
+            while (true) {
                 cout << "Enter amount: ";
-                cin >> amount;
+                cin >> temp;
 
-                if (isValidAmount(amount))
-                    break;
+                bool valid = true;
 
-                cout << "Invalid amount. Try again.\n";
+                for (char c : temp) {
+                    if (!isdigit(c)) {
+                        valid = false;
+                        break;
+                    }
+                }
+
+                if (!valid) {
+                    cout << "Invalid amount!\n";
+                    continue;
+                }
+
+                amount = stod(temp);
+
+                break;
             }
 
-            cout << "---Done---" << endl << endl;
-
             ledger.addTransaction(new MobileLoad(number, amount));
+            cout << "---Done---\n";
         }
 
-        // For easypaisa...
-        else if (choice == 2) {
-            string sender, receiver, direction;
+        // ===================== EASYPAISA =====================
+        else if (input == 2) {
+            string sender, receiver, direction, temp;
             double amount;
 
             cout << "Enter direction (in/out): ";
@@ -294,68 +322,81 @@ int main() {
             while (true) {
                 cout << "Enter sender number: ";
                 cin >> sender;
-
-                if (isValidPhone(sender))
-                    break;
-
+                if (isValidPhone(sender)) break;
                 cout << "Invalid phone number. Try again.\n";
             }
 
             while (true) {
-                cout << "Enter sreceiver number: ";
+                cout << "Enter receiver number: ";
                 cin >> receiver;
-
-                if (isValidPhone(receiver))
-                    break;
-
+                if (isValidPhone(receiver)) break;
                 cout << "Invalid phone number. Try again.\n";
             }
 
-            while(true){
+            while (true) {
                 cout << "Enter amount: ";
-                cin >> amount;
+                cin >> temp;
 
-                if (isValidAmount(amount))
-                    break;
+                bool valid = true;
 
-                cout << "Invalid amount. Try again.\n";
+                for (char c : temp) {
+                    if (!isdigit(c)) {
+                        valid = false;
+                        break;
+                    }
+                }
+
+                if (!valid) {
+                    cout << "Invalid amount!\n";
+                    continue;
+                }
+
+                amount = stod(temp);
+
+                break;
             }
 
-            cout << "---Done---" << endl;
-
             ledger.addTransaction(new EasyPaisa(amount, direction, sender, receiver));
+            cout << "---Done---\n";
         }
 
-        // This houce number 3 is for sim repllacemnt...
-        else if (choice == 3) {
+        // ===================== SIM REPLACEMENT =====================
+        else if (input == 3) {
             string oldN, newN;
 
             while (true) {
                 cout << "Old Number: ";
                 cin >> oldN;
                 if (isValidPhone(oldN)) break;
-                cout << "Invalid number. Try again." << endl;
+                cout << "Invalid number. Try again.\n";
             }
 
             while (true) {
                 cout << "New Number: ";
                 cin >> newN;
                 if (isValidPhone(newN)) break;
-                cout << "Invalid number. Try again." << endl;
+                cout << "Invalid number. Try again.\n";
             }
 
             ledger.addTransaction(new SimReplacement(oldN, newN));
-            cout << "---Done---" << endl;
+            cout << "---Done---\n";
         }
 
-        // for the daiy ledger and total commission... and recerptsof the previous task
-        else if (choice == 4) {
+        // ===================== LEDGER =====================
+        else if (input == 4) {
             int subChoice;
 
             cout << "\n1. Recent Transaction\n";
             cout << "2. Full Day Ledger\n";
             cout << "Enter choice: ";
             cin >> subChoice;
+
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid input!\n";
+                continue;
+            }
 
             if (subChoice == 1) {
                 ledger.generateReceipt(false);
@@ -366,20 +407,18 @@ int main() {
             else {
                 cout << "Invalid choice!\n";
             }
-    }
+        }
 
-        // Exit function...
-        else if (choice == 5) {
-            cout << "Exiting..." << endl;
-            cout << "------------------------" << endl;
-            exit(0);
+        // ===================== EXIT =====================
+        else if (input == 5) {
+            cout << "Exiting...\n";
+            break;
         }
 
         else {
-            cout << "Invalid choice!" << endl;
+            cout << "Invalid choice!\n";
         }
-
-    } while (choice != 5);
+    }
 
     return 0;
 }
