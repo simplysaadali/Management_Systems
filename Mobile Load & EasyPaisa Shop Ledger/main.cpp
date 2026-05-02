@@ -247,7 +247,6 @@ int main() {
         cout << "4. Show Ledger" << endl;
         cout << "5. Exit" << endl;
         cout << "------------------------" << endl;
-        cout << "Enter choice: ";
 
         string temp;
         int input;
