@@ -246,16 +246,18 @@ int main(){
 
     cout << string(92, '-') << endl; // this will create a line to for the table to be separated from thr values...
 
-    for (Payable* p : staff) {
+    for (int i = 0; i < staff.size(); i++) {
+        Payable* p = staff[i];
+
         double gross = p->calculateGrossPay();
         double tax = p->calculateTax();
         double net = p->calculatePay();
 
         cout << left << setw(22) << p->getName()
-             << setw(25) << p->getCategory()
-             << setw(15) << gross
-             << setw(15) << tax
-             << setw(15) << net << endl;
+            << setw(25) << p->getCategory()
+            << setw(15) << gross
+            << setw(15) << tax
+            << setw(15) << net << endl;
     }
 
     cout << "Testing some of them by accessing" << endl;
@@ -263,9 +265,8 @@ int main(){
     staff[1]->generatePaySlip("01-May", "31-May");
 
     // cleanup of the code that we've created, cause ithose were n heap, not stack... deletion manually...
-    for (Payable* p : staff) {
-        delete p;
+    for (int i = 0; i < staff.size(); i++) {
+        delete staff[i];
     }
-
     return 0;
 }

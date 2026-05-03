@@ -11,15 +11,26 @@ using namespace std;
 
 // validation for the phone number...
 bool isValidPhone(string number) {
-    if (number.length() != 11)
+    // check length
+    if (number.length() != 12)
         return false;
 
+    // must start with 03
     if (number.substr(0, 2) != "03")
         return false;
 
-    for (char c : number) {
-        if (!isdigit(c)) return false;
+    // dash must be at index 4
+    if (number[4] != '-')
+        return false;
+
+    // check all characters
+    for (int i = 0; i < number.length(); i++) {
+        if (i == 4) continue; // skip dash
+
+        if (!isdigit(number[i]))
+            return false;
     }
+
     return true;
 }
 
