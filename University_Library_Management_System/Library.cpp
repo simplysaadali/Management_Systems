@@ -201,14 +201,14 @@ void Library::returnBook(string isbn, Member* m) {
     cout << "Enter days late: ";
     daysLate = getValidInt();
 
-    double fine = 0;
+    // Calculate fine
+    double fine = daysLate * m->getFinePerDay();
 
-    if (dynamic_cast<Student*>(m) || dynamic_cast<External*>(m)) {
-        fine = daysLate * 5;
-    }
-
-    if (dynamic_cast<Faculty*>(m) && daysLate > 30) {
-        cout << "Notification sent to HoD: Faculty returned book very late!\n";
+    // Check for Faculty late return (more than 30 days)
+    Faculty* fac = dynamic_cast<Faculty*>(m);
+    if (fac != NULL && daysLate > 30) {
+        cout << "ALERT: Faculty member returned book very late!\n";
+        cout << "Notification sent to HoD\n";
     }
 
     cout << "Fine: Rs. " << fine << endl;

@@ -4,12 +4,27 @@
 #include "Member.h"
 
 class External : public Member {
-public:
-    External(string n, int i) : Member(n, i) {}
+private:
+    int renewalYears; // Track years for renewal
 
-    int getMaxBooks() { return 2; }
-    int getDaysLimit() { return 7; }
-    double getFinePerDay() { return 5; }
+public:
+    External(string n, int i) : Member(n, i) {
+        renewalYears = 1; // Renewed yearly
+    }
+
+    int getMaxBooks(){
+        return 2;
+    }
+    int getDaysLimit(){
+        return 7;
+    }
+    double getFinePerDay(){
+        return 5;
+    }
+    
+    int getRenewalYears(){
+        return renewalYears;
+    }
 };
 
 #endif
