@@ -270,7 +270,7 @@ int main() {
 
         input = stoi(temp);
 
-        // ===================== MOBILE LOAD =====================
+        // mobile load...
         if (input == 1) {
             string number;
             string temp;
@@ -310,7 +310,7 @@ int main() {
             cout << "---Done---\n";
         }
 
-        // ===================== EASYPAISA =====================
+        // Easypaisa...
         else if (input == 2) {
             string sender, receiver, direction, temp;
             double amount;
@@ -359,7 +359,7 @@ int main() {
             cout << "---Done---\n";
         }
 
-        // ===================== SIM REPLACEMENT =====================
+        //Sim replacement...
         else if (input == 3) {
             string oldN, newN;
 
@@ -381,7 +381,7 @@ int main() {
             cout << "---Done---\n";
         }
 
-        // ===================== LEDGER =====================
+        // Ledger...
         else if (input == 4) {
             int subChoice;
 
