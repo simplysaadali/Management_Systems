@@ -3,13 +3,13 @@
 3,Fatima
 4,Hassan
 5,Aisha
-6,Dr. Khan
 7,Ali
 8,Zainab
 9,Bilal
-10,Prof. Ahmed
 11,Mariam
 12,Karim
+6,Dr. Khan
+10,Prof. Ahmed
 13,Amina
 14,Omar
 15,Noor

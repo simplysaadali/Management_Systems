@@ -35,11 +35,4 @@ ISBN034,Dracula,3
 ISBN035,The Strange Case of Dr Jekyll and Mr Hyde,6
 ISBN036,A Brief History of Time,5
 ISBN037,The Selfish Gene,3
-ISBN038,Thinking, Fast and Slow,4
-ISBN039,Sapiens,5
-ISBN040,The Innovators,3
-ISBN041,Code Complete,2
-ISBN042,The Pragmatic Programmer,4
-ISBN043,Design Patterns,3
-ISBN044,The Art of Computer Programming,2
-ISBN045,Introduction to Algorithms,3
+ISBN038,Thinking,0
