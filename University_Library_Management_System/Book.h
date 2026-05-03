@@ -23,12 +23,14 @@ public:
     int getAvailable();
 
     void addReservation(Member* m);
-    void notifyMembers();
+
+    vector<string> notifyMembers();
+
+    void showReservations();
 
     void issueBook();
     void returnBook();
 
-    // Operator overloading (Advanced OOP)
     bool operator==(const Book& other);
 };
 

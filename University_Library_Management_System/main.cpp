@@ -33,7 +33,7 @@ int main() {
         choice = getValidInt();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-        if (choice < 0 || choice > 6) {
+        if (choice < 0 || choice > 8) {
             cout << "Invalid choice! Try again." << endl;
             continue;
         }
@@ -104,6 +104,10 @@ int main() {
             lib.addMember(m);
 
             cout << "Member added!\n";
+            break;
+
+        case 8:
+            lib.showAllMembers();
             break;
 
         case 0:
