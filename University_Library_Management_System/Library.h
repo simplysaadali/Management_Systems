@@ -12,9 +12,10 @@ private:
 
 public:
     void saveBooks();
+    void showAllBooks();
     void loadBooks();
     void saveMembers();
-    void showAllBooks();
+    void showAllMembers();
 
     void addBook(Book* b);
     void addMember(Member* m);

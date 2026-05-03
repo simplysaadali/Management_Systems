@@ -8,11 +8,14 @@ int main() {
     lib.loadBooks();
 
     // sample member
+    Member* m = NULL;
     Member* s1 = MemberFactory::createMember("student", "Saad", 1);
+    lib.addMember(s1);
 
-    int choice;
-    string isbn, title, author, category, keyword;
-    int copies;
+    int choice, copies;
+    string isbn, title, author, category, keyword, name, type;
+
+    
 
     do {
         cout << "\n--- LIBRARY MENU ---\n";
@@ -22,10 +25,13 @@ int main() {
         cout << "4. Show All Books" << endl;
         cout << "5. Issue Book" << endl;
         cout << "6. Return Book" << endl;
+        cout << "7. Add Member" << endl;
+        cout << "8. Show All Members" << endl;
         cout << "0. Exit" << endl;
 
         cout << "Enter choice: ";
         choice = getValidInt();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         if (choice < 0 || choice > 6) {
             cout << "Invalid choice! Try again." << endl;
@@ -49,6 +55,7 @@ int main() {
 
             cout << "Enter Copies: ";
             copies = getValidInt();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             lib.addBook(new Book(isbn, title, author, category, copies));
             cout << "Book added!\n";
@@ -80,6 +87,23 @@ int main() {
             cout << "Enter ISBN: ";
             isbn = getValidString();
             lib.returnBook(isbn, s1);
+            break;
+
+        case 7:
+            cout << "Enter Name: ";
+            name = getValidString();
+
+            cout << "Enter Type (student/faculty/external): ";
+            type = getValidString();
+
+            int id;
+            cout << "Enter ID: ";
+            id = getValidInt();
+
+            m = MemberFactory::createMember(type, name, id);
+            lib.addMember(m);
+
+            cout << "Member added!\n";
             break;
 
         case 0:

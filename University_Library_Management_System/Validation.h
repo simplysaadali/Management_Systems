@@ -17,20 +17,22 @@ int getValidInt() {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
         } else {
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // 🔥 ADD THIS
             return x;
         }
     }
 }
 
+
+
 // String validation (non-empty)
-    string getValidString() {
+  string getValidString() {
     string s;
 
     while (true) {
         getline(cin, s);
 
-        if (s.empty()) {
+        // using a unction that can't tak any empty input...
+        if (s.find_first_not_of(" \t") == string::npos) {
             cout << "Input cannot be empty. Try again: ";
         } else {
             return s;

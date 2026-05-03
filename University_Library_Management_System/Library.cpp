@@ -1,8 +1,26 @@
 #include "Library.h"
 #include "Logger.h"
+#include "Student.h"
+#include "External.h"
+#include "Faculty.h"
+#include "Validation.h"
+
 #include <algorithm>
 #include <ctime>
 #include <fstream>
+
+void Library::showAllMembers() {
+    if (members.empty()) {
+        cout << "No members found.\n";
+        return;
+    }
+
+    cout << "\n--- ALL MEMBERS ---\n";
+    for (auto m : members) {
+        cout << "ID: " << m->getID()
+             << " | Name: " << m->getName() << endl;
+    }
+}
 
 void Library::saveBooks() {
     ofstream file("books.txt");
@@ -145,6 +163,19 @@ void Library::issueBook(string isbn, Member* m) {
 
         saveRecord("ISSUE", isbn, m->getName());
 
+        // NEW FILE LOG
+        ofstream file("issued_books.txt", ios::app);
+        time_t now = time(0);
+        string dt = ctime(&now);
+
+        file << dt.substr(0, dt.length() - 1)
+             << " | " << m->getName()
+             << " | " << isbn
+             << " | " << b->getTitle()
+             << endl;
+
+        file.close();
+
     } else {
         cout << "Book not available. Reserved.\n";
         b->addReservation(m);
@@ -164,4 +195,21 @@ void Library::returnBook(string isbn, Member* m) {
     Logger::getInstance()->log(m->getName() + " returned " + b->getTitle());
 
     saveRecord("RETURN", isbn, m->getName());
+
+    // NEW: Fine calculation
+    int daysLate;
+    cout << "Enter days late: ";
+    daysLate = getValidInt();
+
+    double fine = 0;
+
+    if (dynamic_cast<Student*>(m) || dynamic_cast<External*>(m)) {
+        fine = daysLate * 5;
+    }
+
+    if (dynamic_cast<Faculty*>(m) && daysLate > 30) {
+        cout << "Notification sent to HoD: Faculty returned book very late!\n";
+    }
+
+    cout << "Fine: Rs. " << fine << endl;
 }
