@@ -1,3 +1,45 @@
-1,fifty shades of love,0
-d,d,2
-6,Love of life,4
+ISBN001,The Great Gatsby,5
+ISBN002,To Kill a Mockingbird,3
+ISBN003,1984,4
+ISBN004,Pride and Prejudice,6
+ISBN005,The Catcher in the Rye,2
+ISBN006,Jane Eyre,3
+ISBN007,Wuthering Heights,4
+ISBN008,The Hobbit,5
+ISBN009,The Lord of the Rings,3
+ISBN010,Harry Potter and the Philosopher's Stone,7
+ISBN011,Harry Potter and the Chamber of Secrets,6
+ISBN012,Harry Potter and the Prisoner of Azkaban,5
+ISBN013,The Chronicles of Narnia,4
+ISBN014,Foundation,3
+ISBN015,Dune,2
+ISBN016,The Left Hand of Darkness,3
+ISBN017,Neuromancer,4
+ISBN018,Snow Crash,5
+ISBN019,The Martian,6
+ISBN020,Ender's Game,3
+ISBN021,Mistborn,4
+ISBN022,The Name of the Wind,3
+ISBN023,A Dance with Dragons,2
+ISBN024,The Hound of the Baskervilles,5
+ISBN025,A Sherlock Holmes Collection,4
+ISBN026,The Three Musketeers,3
+ISBN027,The Count of Monte Cristo,3
+ISBN028,Les Misérables,2
+ISBN029,Moby Dick,3
+ISBN030,Treasure Island,5
+ISBN031,The Adventures of Tom Sawyer,4
+ISBN032,Adventures of Huckleberry Finn,3
+ISBN033,Frankenstein,4
+ISBN034,Dracula,3
+ISBN035,The Strange Case of Dr Jekyll and Mr Hyde,6
+ISBN036,A Brief History of Time,5
+ISBN037,The Selfish Gene,3
+ISBN038,Thinking, Fast and Slow,4
+ISBN039,Sapiens,5
+ISBN040,The Innovators,3
+ISBN041,Code Complete,2
+ISBN042,The Pragmatic Programmer,4
+ISBN043,Design Patterns,3
+ISBN044,The Art of Computer Programming,2
+ISBN045,Introduction to Algorithms,3
