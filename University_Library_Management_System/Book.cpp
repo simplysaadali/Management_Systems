@@ -12,9 +12,15 @@ Book::Book(string i, string t, string a, string c, int total) {
 }
 
 // Getters
-string Book::getISBN() { return isbn; }
-string Book::getTitle() { return title; }
-int Book::getAvailable() { return availableCopies; }
+string Book::getISBN(){
+    return isbn;
+}
+string Book::getTitle(){
+    return title;
+}
+int Book::getAvailable(){
+    return availableCopies;
+}
 
 // Reserve book
 void Book::addReservation(Member* m) {
