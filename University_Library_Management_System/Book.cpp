@@ -25,7 +25,7 @@ vector<string> Book::notifyMembers() {
     vector<string> notified;
 
     if (availableCopies > 0 && !reservedMembers.empty()) {
-        cout << "\n🔔 Notifications:\n";
+        cout << "\nNotifications:" << endl;
 
         for (auto m : reservedMembers) {
             string msg = "Book available for " + m->getName();

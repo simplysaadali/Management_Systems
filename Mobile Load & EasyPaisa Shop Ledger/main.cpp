@@ -204,8 +204,8 @@ public:
 
     double totalCommission() {
         double total = 0;
-        for (auto t : t_list) {
-            total += t->calculateCommission();
+        for (int i = 0; i < t_list.size(); i++) {
+            total += t_list[i]->calculateCommission();
         }
         return total;
     }
@@ -221,8 +221,8 @@ public:
         if (fullLedger) {
             file  << endl << "--- DAILY LEDGER ---\n";
 
-            for (auto t : t_list) {
-                t->saveToFile(file);
+            for (int i = 0; i < t_list.size(); i++) {
+                t_list[i]->saveToFile(file);
                 file << "------------------------\n";
             }
 
@@ -241,14 +241,18 @@ public:
     }
 
     ~DailyLedger() {
-        for (Transaction* t : t_list) {
-            delete t;
+        for (int i = 0; i < t_list.size(); i++) {
+            delete t_list[i];
         }
     }
 };
 
 int main() {
     DailyLedger ledger;
+    string temp;
+    int input;
+    bool valid = true;
+
 
     while (true) {
 
@@ -259,16 +263,12 @@ int main() {
         cout << "5. Exit" << endl;
         cout << "------------------------" << endl;
 
-        string temp;
-        int input;
-
         cout << "Enter choice: ";
         cin >> temp;
 
         // check if ALL characters are digits
-        bool valid = true;
-        for (char c : temp) {
-            if (!isdigit(c)) {
+        for (int i = 0; i < temp.length(); i++) {
+            if (!isdigit(temp[i])) {
                 valid = false;
                 break;
             }
@@ -290,8 +290,9 @@ int main() {
             while (true) {
                 cout << "Enter phone number: ";
                 cin >> number;
+
                 if (isValidPhone(number)) break;
-                cout << "Invalid phone number. Try again.\n";
+                cout << "Invalid phone number. Try again" << endl;
             }
 
             while (true) {
@@ -300,18 +301,19 @@ int main() {
 
                 bool valid = true;
 
-                for (char c : temp) {
-                    if (!isdigit(c)) {
+                for (int i = 0; i < temp.length(); i++) {
+                    if (!isdigit(temp[i])) {
                         valid = false;
                         break;
                     }
                 }
 
                 if (!valid) {
-                    cout << "Invalid amount!\n";
+                    cout << "Invalid amount!" << endl;
                     continue;
                 }
 
+// string to double...
                 amount = stod(temp);
 
                 break;
@@ -339,6 +341,7 @@ int main() {
             while (true) {
                 cout << "Enter receiver number: ";
                 cin >> receiver;
+
                 if (isValidPhone(receiver)) break;
                 cout << "Invalid phone number. Try again.\n";
             }
@@ -349,15 +352,15 @@ int main() {
 
                 bool valid = true;
 
-                for (char c : temp) {
-                    if (!isdigit(c)) {
+                for (int i = 0; i < temp.length(); i++) {
+                    if (!isdigit(temp[i])) {
                         valid = false;
                         break;
                     }
                 }
 
                 if (!valid) {
-                    cout << "Invalid amount!\n";
+                    cout << "Invalid amount!" << endl;
                     continue;
                 }
 
@@ -403,8 +406,10 @@ int main() {
 
             if (cin.fail()) {
                 cin.clear();
+
+                // clear leftover, and removes everyting  until next line...
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Invalid input!\n";
+                cout << "Invalid input!" << endl;
                 continue;
             }
 
@@ -419,7 +424,6 @@ int main() {
             }
         }
 
-        // ===================== EXIT =====================
         else if (input == 5) {
             cout << "Exiting...\n";
             break;
